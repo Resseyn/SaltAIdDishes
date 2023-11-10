@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"SaltAIdDishes/internal/database"
+	"SaltAIdDishes/pkg/database"
 	"SaltAIdDishes/pkg/loggers"
 	"fmt"
 	"net/http"

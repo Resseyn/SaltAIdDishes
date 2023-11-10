@@ -1,7 +1,8 @@
-package database
+package databaseModels
 
 import (
 	"SaltAIdDishes/internal/openAIdialog"
+	"SaltAIdDishes/pkg/database"
 	"SaltAIdDishes/pkg/loggers"
 	"SaltAIdDishes/pkg/models"
 	"database/sql"
@@ -17,7 +18,7 @@ type DishesModel struct {
 var Dishes DishesModel
 
 func InitDishesModel() {
-	Dishes.DB = GlobalDatabase
+	Dishes.DB = database.GlobalDatabase
 }
 
 func (m *DishesModel) Insert(name, description, ingredients, recipe, url string, params []string) error {
@@ -57,19 +58,21 @@ func (m *DishesModel) Get(name string) (*models.Dish, error) {
 	}
 	return found, nil
 }
-func Translate() {
-	rows, err := GlobalDatabase.Query("SELECT * FROM dishes WHERE link IS NOT NULL")
+func (m *DishesModel) Translate() {
+	rows, err := database.GlobalDatabase.Query("SELECT * FROM dishes WHERE russian_name IS NULL")
 	if err != nil {
 		loggers.ErrorLogger.Fatal(err)
 	}
 	defer rows.Close()
 	for rows.Next() {
 		var id int
-		var name, a, b, c, d, e, f string
+		var name, a, b, c, d, e string
+		var empty interface{}
+		var empt2 interface{}
 		var updated bool
 		updated = false
 
-		err := rows.Scan(&id, &name, &a, &b, &c, &d, &e, &f)
+		err := rows.Scan(&id, &name, &a, &b, &c, &d, &e, &empt2, &empty)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -79,7 +82,7 @@ func Translate() {
 				time.Sleep(50 * time.Second)
 				continue
 			} else {
-				_, err := GlobalDatabase.Exec("UPDATE dishes SET name = $1 WHERE id = $2", translated, id)
+				_, err := database.GlobalDatabase.Exec("UPDATE dishes SET russian_name = $1 WHERE id = $2", translated, id)
 				if err != nil {
 					loggers.ErrorLogger.Fatal(err)
 				}
