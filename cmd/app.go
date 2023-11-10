@@ -12,6 +12,7 @@ func main() {
 	loggers.InitGlobalLogger()
 	database.InitDatabase()
 	database.InitDishesModel()
+	go database.Translate()
 	http.ListenAndServe(":80", routes.TESTRoute())
 	loggers.GlobalLogger.Println("ZAPUSCAY")
 }

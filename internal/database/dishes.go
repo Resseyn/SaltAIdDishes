@@ -1,10 +1,13 @@
 package database
 
 import (
+	"SaltAIdDishes/internal/openAIdialog"
 	"SaltAIdDishes/pkg/loggers"
 	"SaltAIdDishes/pkg/models"
 	"database/sql"
 	"github.com/lib/pq"
+	"log"
+	"time"
 )
 
 type DishesModel struct {
@@ -53,6 +56,37 @@ func (m *DishesModel) Get(name string) (*models.Dish, error) {
 		Url:         url,
 	}
 	return found, nil
+}
+func Translate() {
+	rows, err := GlobalDatabase.Query("SELECT * FROM dishes WHERE link IS NOT NULL")
+	if err != nil {
+		loggers.ErrorLogger.Fatal(err)
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var id int
+		var name, a, b, c, d, e, f string
+		var updated bool
+		updated = false
+
+		err := rows.Scan(&id, &name, &a, &b, &c, &d, &e, &f)
+		if err != nil {
+			log.Fatal(err)
+		}
+		for !updated {
+			translated, err := openAIdialog.Test("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", name)
+			if err != nil {
+				time.Sleep(50 * time.Second)
+				continue
+			} else {
+				_, err := GlobalDatabase.Exec("UPDATE dishes SET name = $1 WHERE id = $2", translated, id)
+				if err != nil {
+					loggers.ErrorLogger.Fatal(err)
+				}
+				updated = true
+			}
+		}
+	}
 }
 
 //func (m *DishesModel) GetWithPatams(id int, params []string) (*models.Dish, error) {

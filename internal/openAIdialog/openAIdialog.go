@@ -19,7 +19,7 @@ func Test(secret, name string) (string, error) {
 	}
 	req.Messages = append(req.Messages, openai.ChatCompletionMessage{
 		Role:    openai.ChatMessageRoleUser,
-		Content: "Переведи на английский. Выйдай только перевод: " + name,
+		Content: "Переведи на русский. Выйдай только перевод: " + name,
 	})
 	resp, err := client.CreateChatCompletion(
 		context.Background(),

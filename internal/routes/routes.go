@@ -7,7 +7,9 @@ import (
 
 func TESTRoute() *http.ServeMux {
 	mux := http.NewServeMux()
-	mux.HandleFunc("/post", handlers.Home)
+	mux.HandleFunc("/postrecipe", handlers.Home)
+	mux.HandleFunc("/post", handlers.YoutHome)
+	mux.HandleFunc("/getlink", handlers.GetLink)
 
 	//fileServer := http.FileServer(http.Dir("./web/static/"))
 	//mux.Handle("/static", http.NotFoundHandler())

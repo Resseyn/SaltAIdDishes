@@ -17,14 +17,23 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	dishRecipe := ""
 	dataSplit := strings.Split(data, "    ")
 	in := 1
-	for _, st := range dataSplit {
+	for i, st := range dataSplit {
 		if st != "" {
 			switch {
-			case strings.Contains(st, "Название:"):
-				dish.Name = strings.Trim(strings.Split(st, "Название:")[1], " ")
+			case i == 0 || strings.Contains(st, "Название:"):
+				if !strings.Contains(st, "Название:") {
+					dish.Name = st
+				} else {
+					dish.Name = strings.Trim(strings.Split(st, "Название:")[1], " ")
+				}
 			case strings.Contains(st, "Краткое описание:"):
 				dish.Description = strings.Trim(strings.Split(st, "Краткое описание:")[1], " ")
+			case strings.Contains(st, "Описание:"):
+				dish.Description = strings.Trim(strings.Split(st, "Описание:")[1], " ")
 			default:
+				if strings.Contains(st, "Ингредиенты:") {
+					continue
+				}
 				if strings.Contains(st, "Рецепт:") {
 					dishRecipe = dishRecipe + st + "\n"
 				} else if !strings.Contains(st, "Рецепт:") {
@@ -45,12 +54,15 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 	}
 	dish.Ingredients = strings.Split(dishRecipe, "Рецепт:")[0]
-	dish.Recipe = "Рецепт:" + strings.Split(dishRecipe, "Рецепт:")[1]
+	dish.Recipe = strings.Split(dishRecipe, "Рецепт:")[1]
 	tempparams := make([]string, 0, 1)
+
+	tempparams = append(tempparams, "Итальянская")
+
 	url := scrappers.Scrap(dish.Name)
 	err := database.Dishes.Insert(dish.Name, dish.Description, dish.Ingredients, dish.Recipe, url, tempparams)
 	if err != nil {
-		loggers.ErrorLogger.Println(err)
+		//loggers.ErrorLogger.Println(err)
 	}
 	found, err := database.Dishes.Get(dish.Name)
 	if err != nil {
