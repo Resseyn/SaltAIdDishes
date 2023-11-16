@@ -13,7 +13,9 @@ func main() {
 	loggers.InitGlobalLogger()
 	database.InitDatabase()
 	databaseModels.InitDishesModel()
-	go databaseModels.Dishes.Translate()
-	http.ListenAndServe(":80", routes.TESTRoute())
+	//go databaseModels.Dishes.Translate()
+	mux, r := routes.TESTRoute()
+	go http.ListenAndServe(":80", mux)
+	r.Run(":8080")
 	loggers.GlobalLogger.Println("ZAPUSCAY")
 }

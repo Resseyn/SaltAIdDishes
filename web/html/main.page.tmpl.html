@@ -6,17 +6,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Home - Ostromiresseyn</title>
-    <link rel="stylesheet" href="/web/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/materialize.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap">
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg fixed-top bg-dark navbar-custom navbar-dark">
-    <div class="container"><a class="navbar-brand" href="#">Saltaied recipies</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarResponsive"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="container" style="padding-bottom:15px;">
+        <a class="navbar-brand" href="#" style="padding-top:20px;">Saltaied recipies</a>
+        <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarResponsive">
+            <span class="visually-hidden">Toggle navigation</span>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#"><input type="search"></a></li>
+                <li class="nav-item"><a class="nav-link" href="#"><input type="search" style="
+    color: whitesmoke;
+"></a></li>
             </ul>
         </div>
     </div>
@@ -28,60 +36,91 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="btn-group d-flex justify-content-center" role="group"><button class="btn btn-primary me-2 mb-2" type="button">Завтрак</button><button class="btn btn-primary me-2 mb-2" type="button">Обед</button><button class="btn btn-primary me-2 mb-2" type="button">Ужин</button></div>
+                <div class="btn-group d-flex justify-content-center" role="group">
+                    <button class="btn btn-dark me-2 mb-2" type="button">Завтрак</button>
+                    <button class="btn btn-dark me-2 mb-2" type="button">Обед</button>
+                    <button class="btn btn-dark me-2 mb-2" type="button">Ужин</button></div>
             </div>
         </div>
-        <div class="row"><div class="btn-group d-flex"><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Option 1
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Option 1.1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 1.2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 1.3</a></li>
-                </ul><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Option 2
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Option 2.1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 2.2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 2.3</a></li>
-                </ul><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Option 3
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Option 3.1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 3.2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 3.3</a></li>
-                </ul><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Option 4
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Option 4.1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 4.2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 4.3</a></li>
-                </ul><button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Option 5
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Option 5.1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 5.2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 5.3</a></li>
-                </ul>
+        <div class="row"><div class="btn-group d-flex">
+                <div class="input-field col s12">
+                <select>
+                <option
+                        value="" selected>Любая</option>
+                <option
+                        value="1">Итальянская</option>
+                <option
+                        value="2">Option 2</option>
+                <option
+                        value="3">Option 3</option>
+                </select>
+                    <label>Кухня</label>
+            </div>
+                <div class="input-field col s12">
+                    <select>
+                        <option
+                                value="" selected>Любая</option>
+                        <option
+                                value="1">Итальянская</option>
+                        <option
+                                value="2">Option 2</option>
+                        <option
+                                value="3">Option 3</option>
+                    </select>
+                    <label>Тип блюда</label>
+                </div>
+                <div class="input-field col s12">
+                    <select>
+                        <option
+                                value="" selected>Любая</option>
+                        <option
+                                value="1">Итальянская</option>
+                        <option
+                                value="2">Option 2</option>
+                        <option
+                                value="3">Option 3</option>
+                    </select>
+                    <label>Цена</label>
+                </div>
+                <div class="input-field col s12">
+                    <select>
+                        <option
+                                value="" selected>Любая</option>
+                        <option
+                                value="1">Итальянская</option>
+                        <option
+                                value="2">Option 2</option>
+                        <option
+                                value="3">Option 3</option>
+                    </select>
+                    <label>Виды блюд</label>
+                </div>
+                <div class="input-field col s12">
+                    <select>
+                        <option
+                                value="" selected>Любая</option>
+                        <option
+                                value="1">Итальянская</option>
+                        <option
+                                value="2">Option 2</option>
+                        <option
+                                value="3">Option 3</option>
+                    </select>
+                    <label>Состав блюда</label>
+                </div>
             </div></div>
     </div>
 </section>
 <section>
     <div class="container">
         <div class="row">
-            <div class="col text-center"><button class="btn btn-primary">Сгенерировать</button></div>
+            <div class="col text-center">
+                <button id="generate" class="btn btn-success">Сгенерировать</button>
+            </div>
         </div>
-        <div class="row align-items-center display-dish"><div id="myDiv" class="mt-4">Some Content in the Div</div></div>
-
-        <script>
-            document.getElementById("showDiv").addEventListener("click", function() {
-                document.getElementById("myDiv").style.display = "block";
-            });
-        </script>
+        <div id="result-row" class="row align-items-center display-dish">
+            <div id="dishRow" class="mt-4" style="display: none"></div>
+        </div>
     </div>
 </section>
 <footer class="py-5 bg-black">
@@ -89,7 +128,9 @@
         <p class="text-center text-white m-0 small">Copyright&nbsp;© Ostromiresseyn 2023</p>
     </div>
 </footer>
-<script src="/web/static/js/bootstrap.min.js"></script>
+<script src="/static/js/javascript.js"></script>
+<script src="/static/js/materialize.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
 </body>
 
 </html>

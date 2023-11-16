@@ -6,11 +6,13 @@ type AIResponce struct {
 }
 
 type Dish struct {
-	ID          int
-	Name        string
-	Description string
-	Ingredients string
-	Recipe      string
-	Url         string
-	Params      []string
+	ID          int      `json:"id"`
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Ingredients string   `json:"ingredients"`
+	Recipe      string   `json:"recipe"`
+	Url         string   `json:"url"`
+	Params      []string `json:"params"`
+	Link        string   `json:"link"`
+	RussianName string   `json:"russianName"`
 }
