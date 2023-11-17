@@ -15,17 +15,26 @@ func Generate(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
+	var result []string
+	for _, str := range jsonInput.Params {
+		if str != "" {
+			result = append(result, str)
+		}
+	}
+	jsonInput.Params = result
 	found, err := databaseModels.Dishes.GetWithParams(jsonInput.Params)
 	if err != nil {
-		c.Error(http.ErrHandlerTimeout)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"english":     found.Name,
+			"description": found.Description,
+			"ingredients": found.Ingredients,
+			"recipe":      found.Recipe,
+			"image":       found.Url,
+			"video":       found.Link,
+			"russian":     found.RussianName,
+		})
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"english":     found.Name,
-		"description": found.Description,
-		"ingredients": found.Ingredients,
-		"recipe":      found.Recipe,
-		"image":       found.Url,
-		"video":       found.Link,
-		"russian":     found.RussianName,
-	})
 }

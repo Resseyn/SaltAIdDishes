@@ -108,21 +108,40 @@ func (m *DishesModel) Translate() {
 
 func (m *DishesModel) GetWithParams(params []string) (*models.Dish, error) {
 	found := models.Dish{}
+	fmt.Println(params)
 	var foundParams string
-	//выбираем по all, но если нет совпадений, убираем последный элемент парамтров, также выводить флаг и предупреждать пользователя, если параметры подчистились
-	err := database.GlobalDatabase.QueryRow("SELECT id, name, description, ingredients, recipe, url, params FROM dishes WHERE params @> $1 ORDER BY RANDOM() LIMIT 1", pq.Array(params)).Scan(&found.ID, &found.Name, &found.Description, &found.Ingredients, &found.Recipe, &found.Url, &foundParams)
-	if err != nil {
-		loggers.ErrorLogger.Println(err)
-		return nil, err
+	if len(params) == 0 {
+		err := database.GlobalDatabase.QueryRow("SELECT id, name, description, ingredients, recipe, url, params FROM dishes ORDER BY RANDOM() LIMIT 1").Scan(&found.ID, &found.Name, &found.Description, &found.Ingredients, &found.Recipe, &found.Url, &foundParams)
+		if err != nil {
+			loggers.ErrorLogger.Println(err)
+			return &found, err
+		}
+		foundParams = strings.Trim(foundParams, "{}")
+		paramArray := strings.Split(foundParams, ",")
+		jsonString := fmt.Sprintf(`["%s"]`, strings.Join(paramArray, `","`))
+		var result []string
+		err = json.Unmarshal([]byte(jsonString), &result)
+		if err != nil {
+			fmt.Println("Ошибка декодирования JSON:", err)
+			return &found, err
+		}
+		return &found, nil
+	} else {
+		//выбираем по all, но если нет совпадений, убираем последный элемент парамтров, также выводить флаг и предупреждать пользователя, если параметры подчистились
+		err := database.GlobalDatabase.QueryRow("SELECT id, name, description, ingredients, recipe, url, params FROM dishes WHERE params @> $1 ORDER BY RANDOM() LIMIT 1", pq.Array(params)).Scan(&found.ID, &found.Name, &found.Description, &found.Ingredients, &found.Recipe, &found.Url, &foundParams)
+		if err != nil {
+			loggers.ErrorLogger.Println(err)
+			return nil, err
+		}
+		foundParams = strings.Trim(foundParams, "{}")
+		paramArray := strings.Split(foundParams, ",")
+		jsonString := fmt.Sprintf(`["%s"]`, strings.Join(paramArray, `","`))
+		var result []string
+		err = json.Unmarshal([]byte(jsonString), &result)
+		if err != nil {
+			fmt.Println("Ошибка декодирования JSON:", err)
+			return nil, err
+		}
+		return &found, nil
 	}
-	foundParams = strings.Trim(foundParams, "{}")
-	paramArray := strings.Split(foundParams, ",")
-	jsonString := fmt.Sprintf(`["%s"]`, strings.Join(paramArray, `","`))
-	var result []string
-	err = json.Unmarshal([]byte(jsonString), &result)
-	if err != nil {
-		fmt.Println("Ошибка декодирования JSON:", err)
-		return nil, err
-	}
-	return &found, nil
 }
