@@ -75,6 +75,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	tempparams = append(tempparams, "Итальянская")
 	tempparams = append(tempparams, "Завтрак")
 	tempparams = append(tempparams, "Закуска")
+	tempparams = append(tempparams, "Дешевое")
 
 	url := scrappers.Scrap(dish.Name)
 	err := databaseModels.Dishes.Insert(dish.Name, dish.Description, dish.Ingredients, dish.Recipe, url, tempparams)
